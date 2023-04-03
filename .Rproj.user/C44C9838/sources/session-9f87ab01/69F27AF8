@@ -1,27 +1,26 @@
 {
-    "id": "C112FCE0",
-    "path": "~/GitHub/graduatoria-candidati-GC23/candidat.Rmd",
-    "project_path": "candidat.Rmd",
+    "id": "69F27AF8",
+    "path": "~/GitHub/graduatoria-candidati-GC23/index.Rmd",
+    "project_path": "index.Rmd",
     "type": "r_markdown",
-    "hash": "2286366477",
+    "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1680539066141.0,
+    "created": 1680540567705.0,
     "source_on_save": false,
-    "relative_order": 5,
+    "relative_order": 4,
     "properties": {
-        "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "28,0",
-        "scrollLine": "15"
+        "cursorPosition": "4,13",
+        "scrollLine": "0"
     },
     "folds": "",
     "lastKnownWriteTime": 1680540383,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1680540383239,
+    "last_content_update": 1680540383,
     "read_only": false,
     "read_only_alternatives": []
 }
