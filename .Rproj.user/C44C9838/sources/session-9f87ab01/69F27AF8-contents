@@ -8,7 +8,7 @@ output:
 
 <br><br>
 
-Aggiornato al `r format(Sys.Date(), "%d/%m/%Y")` alle ora `r format(Sys.time(), "%H:%M")`
+Aggiornato al `r format(Sys.Date(), "%d/%m/%Y")` alle ore `r format(Sys.time(), "%H:%M")`
 
 <br><br>
 
