@@ -1,0 +1,7 @@
+"0","tabelle_1 %>%
+  kbl() %>%
+  kable_material(c(""striped"", ""hover""))
+"
+"2","Error in kable_material(., c(""striped"", ""hover"")) : 
+  could not find function ""kable_material""
+"

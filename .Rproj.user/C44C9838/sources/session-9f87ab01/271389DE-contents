@@ -1,0 +1,41 @@
+---
+title: "Graduatoria risultati candidate/i Gran Consiglio 2023"
+output: html_document
+date: "2023-04-03"
+---
+
+
+```{r, echo=F}
+
+library(tidyverse)
+library(kableExtra)
+
+url <- paste0(getwd(), "/Candidati.htm")
+
+tabelle<-read_html(url) %>% 
+  html_table()
+
+
+```
+
+
+# 01 Partito liberale radicale ticinese (PLR)
+
+```{r, echo=F}
+tabelle_1 <- tabelle[[1]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_1 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+
+

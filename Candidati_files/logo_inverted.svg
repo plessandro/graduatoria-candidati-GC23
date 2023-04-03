@@ -1,0 +1,16 @@
+<svg id="Raggruppa_340" data-name="Raggruppa 340" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="104.335" height="70" viewBox="0 0 104.335 70">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rettangolo_510" data-name="Rettangolo 510" width="104.335" height="70" fill="none"/>
+    </clipPath>
+  </defs>
+  <rect id="Rettangolo_508" data-name="Rettangolo 508" width="104.335" height="70" fill="#000"/>
+  <rect id="Rettangolo_509" data-name="Rettangolo 509" width="8.334" height="20" transform="translate(41.606 30.001)" fill="#fff"/>
+  <g id="Raggruppa_339" data-name="Raggruppa 339">
+    <g id="Raggruppa_338" data-name="Raggruppa 338" clip-path="url(#clip-path)">
+      <path id="Tracciato_324" data-name="Tracciato 324" d="M45.773,28.611a4.722,4.722,0,1,0-4.721-4.721,4.722,4.722,0,0,0,4.721,4.721" fill="#fff"/>
+      <path id="Tracciato_325" data-name="Tracciato 325" d="M35.366,43.573a1.945,1.945,0,0,1-1.537-1.9l0-.006V36.111h5.556V30H33.833V20.28h-.557L18,35.555v.556h6.944v8.333a6.092,6.092,0,0,0,5.541,6.076l.01.007q.825.078,1.668.078a17.781,17.781,0,0,0,7.224-1.523V43.473a8.756,8.756,0,0,1-2.223.285,8.858,8.858,0,0,1-1.8-.185" fill="#fff"/>
+      <path id="Tracciato_326" data-name="Tracciato 326" d="M62.161,30V41.944a8.612,8.612,0,1,0,17.224,0V30Zm.556.557h1.1V46a7.969,7.969,0,0,1-1.1-4.054ZM65.489,48a8.1,8.1,0,0,1-1.113-1.184V30.556h1.113Zm1.669,1.122a8.059,8.059,0,0,1-1.114-.682V30.556h1.114Zm1.67.624a7.919,7.919,0,0,1-1.115-.37V30.556h1.115Zm1.668.237a8.025,8.025,0,0,1-1.115-.125V30.556H70.5Zm.554,0v-1.1h3.789a8.007,8.007,0,0,1-3.789,1.1m4.613-1.65H71.05V47.223h5.8a8.029,8.029,0,0,1-1.187,1.114m1.627-1.669H71.05V45.559h6.916a7.854,7.854,0,0,1-.676,1.109M78.225,45H71.05V43.891h7.533A7.893,7.893,0,0,1,78.225,45m.477-1.668H71.05V42.221h7.766a8.162,8.162,0,0,1-.114,1.115m.128-1.669H71.051V40.558H78.83Zm0-1.664H71.051V38.888H78.83Zm0-1.669H71.051V37.225H78.83Zm0-1.664H71.051V35.555H78.83Zm0-1.668H71.051V33.887H78.83Zm0-1.669H71.051V32.224H78.83Zm0-1.664H71.051V30.555H78.83Z" fill="#fff"/>
+    </g>
+  </g>
+</svg>

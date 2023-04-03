@@ -1,0 +1,313 @@
+---
+title: "Graduatoria risultati candidate/i Gran Consiglio 2023"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+
+<br><br>
+
+Le candidati e i candidati sono ordinati in base al numero di voti ricevuti.
+
+```{r, echo=F, message=F, warning=F}
+
+library(tidyverse)
+library(kableExtra)
+library(rvest)
+
+
+url <- paste0(getwd(), "/Candidati.htm")
+
+tabelle<-read_html(url) %>% 
+  html_table()
+
+
+```
+
+<br>
+
+# 01 Partito liberale radicale ticinese (PLR)
+
+```{r, echo=F}
+tabelle_1 <- tabelle[[1]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_1 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+<br>
+
+# 02 MPS-Indipendenti
+
+```{r, echo=F}
+tabelle_2 <- tabelle[[2]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_2 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+<br>
+
+# 03 PVL e Giovani Verdi Liberali (PVL e GVL)
+
+```{r, echo=F}
+tabelle_3 <- tabelle[[3]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_3 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+<br>
+
+# 04 Più Donne
+
+```{r, echo=F}
+tabelle_4 <- tabelle[[4]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_4 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 05 Partito Comunista – Partito Operaio e Popolare (PC-POP)
+
+```{r, echo=F}
+tabelle_5 <- tabelle[[5]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_5 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 06 Avanti con Ticino & Lavoro
+
+```{r, echo=F}
+tabelle_6 <- tabelle[[6]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_6 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 07 il Centro + Giovani del Centro
+
+```{r, echo=F}
+tabelle_7 <- tabelle[[7]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_7 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 08 HelvEthica Ticino
+
+```{r, echo=F}
+tabelle_8 <- tabelle[[8]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_8 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 11 UDC
+
+```{r, echo=F}
+tabelle_9 <- tabelle[[9]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_9 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 12 Partito Socialista, Gioventù Socialista e Forum Alternativo
+
+```{r, echo=F}
+tabelle_10 <- tabelle[[10]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_10 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 13 Lega dei Ticinesi
+
+```{r, echo=F}
+tabelle_11 <- tabelle[[11]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_11 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 14 Verdi del Ticino
+
+```{r, echo=F}
+tabelle_12 <- tabelle[[12]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_12 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 15 DIGNITÀ ai PENSIONATI
+
+```{r, echo=F}
+tabelle_13 <- tabelle[[13]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_13 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br>
+
+# 16 Movimento MontagnaViva
+
+```{r, echo=F}
+tabelle_14 <- tabelle[[14]] %>% 
+  slice(1:(nrow(.)-1)) %>% 
+  mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
+         `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
+  arrange(desc(`VOTI PERSONALI`))
+
+# tabella
+
+tabelle_14 %>%
+  kbl() %>%
+  kable_material(c("striped", "hover"))
+
+```
+
+
+<br><br><br>
+
+
+**Fonte dei dati**:
+
+* Repubblica e Cantone Ticino (2023). *Risultati elezioni cantonali 2023*. ([ti.ch/elezioni](https://www.elezioni.ti.ch/cantonali-2023/risultati-nel-cantone/candidati?tx_tichelezioni_elezione[action]=riscandidati&tx_tichelezioni_elezione[controller]=Cantonali&tx_tichelezioni_elezione[elezione]=24&tx_tichelezioni_elezione[noFile]=000_00_1&tx_tichelezioni_elezione[potere]=GC&tx_tichelezioni_elezione[soggetto]=Cantone){target="_blank"}, stato al `r format(Sys.Date(), format="%d/%m/%Y")`)
+
+<br>

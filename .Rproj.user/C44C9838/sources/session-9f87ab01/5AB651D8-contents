@@ -1,0 +1,450 @@
+---
+title: "Panachage Elezione Gran Consiglio 2023"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+runtime: shiny
+---
+
+<style>
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+  
+.girafe_container_std {
+  height: 100%;
+}
+
+</style>
+
+```{r, include=FALSE}
+
+rm(list = ls())
+
+library(tidyverse)
+# library(foreign)
+# library(janitor)
+# library(data.table)
+# library(purrr)
+# library(lubridate)
+library(ggiraph)
+# library(survey)
+# library(srvyr)
+library(flexdashboard)
+# library(RCurl)
+library(shiny)
+
+source("test_GC.R")
+
+# load("df_full.RData")
+
+
+
+```
+
+
+
+
+```{r funzione-torta-con-base, include=FALSE}
+
+# Funktion, um interaktive Grafik zu erstellen
+
+grafico_torta<-function(#partito, 
+  candidato) {
+  
+  # test grafico
+
+  test<-df_full %>% 
+   # filter(PARTITO %in% partito) %>% 
+    filter(candidato_e_partito         %in% candidato)
+
+
+  # colore partito
+
+  colore_partito<-test %>% 
+  filter(is.na(value)) %>% 
+  select(colori) %>% 
+  pull()
+
+  test$colori[test$variable %in% "BASE"]<-colore_partito
+  test$colori[test$variable %in% "PREF."]<-colorspace::darken(colore_partito, 0.05)
+
+  # nome partito in BASE e in PREF.
+
+  plyr::revalue(test$variable, c("BASE" = paste0("BASE (", unique(test$PARTITO), ")"))) -> test$variable
+
+  plyr::revalue(test$variable, c("PREF." = paste0("PREF. (", unique(test$PARTITO), ")"))) -> test$variable
+
+  # grafico statico
+  
+  plot_cand<-ggplot(test, aes(x="", y=value, fill=factor(variable, levels = rev(levels(test$variable))))) +
+  #  geom_bar(stat="identity", width=1, color="white") +
+   # coord_polar("y", start=0) +
+    #scale_fill_manual(values = drop_na(test) %>% select(colori) %>% pull() %>% rev(),
+     #              guide = guide_legend(reverse = TRUE) ) + # togliere NA del partito di appartenenza
+    ggtitle(paste0(unique(test$candidato_e_partito))) +
+    theme_void() +
+    theme(legend.title = element_blank(),
+          plot.title = element_text(hjust = 0.5))
+  
+  
+  # interaktiv
+  
+    plot_cand_interactive<-plot_cand + 
+    geom_bar_interactive(aes(x="", y=value, fill=factor(variable, levels = rev(levels(variable))),
+                   tooltip=paste0("Voti da <strong>", variable, "</strong>: ", format(value, big.mark = "'", trim = T), 
+                                  " (", scales::percent(value_perc, decimal.mark = ",", accuracy = 0.1),
+                                  " di tutti i voti)"),
+                   data_id=""),
+                   stat="identity",
+                   color="white",
+                   size=0.4) +
+    coord_polar("y", start=0) +
+    scale_fill_manual(values = drop_na(test) %>% select(colori) %>% pull() %>% rev(),
+                   guide = guide_legend(reverse = TRUE) ) +
+      theme(text = element_text(family = "Arial"))
+    
+    
+      tooltip_elezioni<- "background:white;padding:10px;border:1.5px solid#000000;font-family:Arial;font-size:13px;line-height:170%;color:black;"
+      
+  
+   plot_cand_girafe<-
+     girafe(ggobj = plot_cand_interactive, width_svg = 10, height_svg = 5,
+            options = list(
+          opts_hover(css = "fill:white;opacity:0.5;"),
+          opts_tooltip(css = tooltip_elezioni,
+                      use_cursor_pos = T, 
+                      use_fill = F,
+                      opacity = 0.95),
+          opts_toolbar(saveaspng = FALSE)))
+     
+     
+  plot_cand_girafe
+  
+}
+
+
+```
+
+
+ {.sidebar} {data-height=100}
+-----------------------------------------------------------------------
+
+```{r}
+    
+#selectInput('partito', 'Partito', nomi_partiti,
+#            selected="Più Donne")
+    
+selectInput('candidato_e_partito', 'Selezionare candidato/a',
+            choices = unique(df_full$candidato_e_partito))
+
+
+
+```
+
+{data-height=750} {.tabset}
+-----------------------------------------------------------------------
+
+### Con voti di base
+
+```{r grafico-con-base}
+
+# Combine the selected variables into a new data frame
+#selectedData <- reactive({
+#  vox_pool[, c(input$y_variable, input$untergruppe)]
+#})
+
+
+
+# renderPlot({
+#   trend_abstimmung(input$y_variable, input$untergruppe)
+# })
+
+
+
+renderGirafe({
+   grafico_torta(#input$partito, 
+     input$candidato_e_partito)
+ })
+
+
+```
+
+
+### Senza voti di base
+
+```{r funzione-torta-senza-base, include=FALSE}
+
+# rimuovere base da df_full e ricalcolare value_perc
+
+df_full_redux<-df_full %>% 
+  filter(!(variable %in% "BASE")) %>% 
+  select(everything(), -value_perc) %>% 
+  group_by(NOMINATIVO) %>% 
+  mutate(value_perc = value / sum(value, na.rm = T)) %>% 
+  ungroup()
+
+# Funktion, um interaktive Grafik zu erstellen
+
+grafico_torta_senza_base<-function(#partito, 
+  candidato) {
+  
+  # test grafico
+
+  test<-df_full_redux %>% 
+   # filter(PARTITO %in% partito) %>% 
+    filter(candidato_e_partito         %in% candidato)
+
+
+  # colore partito
+
+  colore_partito<-test %>% 
+  filter(is.na(value)) %>% 
+  select(colori) %>% 
+  pull()
+
+  # test$colori[test$variable %in% "BASE"]<-colore_partito
+  test$colori[test$variable %in% "PREF."]<-colorspace::darken(colore_partito, 0.05)
+
+  # nome partito in BASE e in PREF.
+
+  # plyr::revalue(test$variable, c("BASE" = paste0("BASE (", unique(test$PARTITO), ")"))) -> test$variable
+
+  plyr::revalue(test$variable, c("PREF." = paste0("PREF. (", unique(test$PARTITO), ")"))) -> test$variable
+
+  # grafico statico
+  
+  plot_cand<-ggplot(test, aes(x="", y=value, fill=factor(variable, levels = rev(levels(test$variable))))) +
+  #  geom_bar(stat="identity", width=1, color="white") +
+   # coord_polar("y", start=0) +
+    #scale_fill_manual(values = drop_na(test) %>% select(colori) %>% pull() %>% rev(),
+     #              guide = guide_legend(reverse = TRUE) ) + # togliere NA del partito di appartenenza
+    ggtitle(paste0(unique(test$candidato_e_partito))) +
+    theme_void() +
+    theme(legend.title = element_blank(),
+          plot.title = element_text(hjust = 0.5))
+  
+  
+  # interaktiv
+  
+    plot_cand_interactive<-plot_cand + 
+    geom_bar_interactive(aes(x="", y=value, fill=factor(variable, levels = rev(levels(variable))),
+                   tooltip=paste0("Voti da <strong>", variable, "</strong>: ", format(value, big.mark = "'", trim = T), 
+                                  " (", scales::percent(value_perc, decimal.mark = ",", accuracy = 0.1),
+                                  " di tutti i voti preferenziali)"),
+                   data_id=""),
+                   stat="identity",
+                   color="white",
+                   size=0.4) +
+    coord_polar("y", start=0) +
+    scale_fill_manual(values = drop_na(test) %>% select(colori) %>% pull() %>% rev(),
+                   guide = guide_legend(reverse = TRUE) ) +
+      theme(text = element_text(family = "Arial"))
+    
+    
+      tooltip_elezioni<- "background:white;padding:10px;border:1.5px solid#000000;font-family:Arial;font-size:13px;line-height:170%;color:black;"
+      
+  
+   plot_cand_girafe<-girafe(ggobj = plot_cand_interactive, width_svg = 10, height_svg = 5,
+            options = list(
+          opts_hover(css = "fill:white;opacity:0.5;"),
+          opts_tooltip(css = tooltip_elezioni,
+                      use_cursor_pos = T, 
+                      use_fill = F,
+                      opacity = 0.95),
+          opts_toolbar(saveaspng = FALSE)))
+     
+     
+  plot_cand_girafe
+  
+}
+
+
+```
+
+
+
+```{r grafico-senza-base}
+
+# Combine the selected variables into a new data frame
+#selectedData <- reactive({
+#  vox_pool[, c(input$y_variable, input$untergruppe)]
+#})
+
+
+
+# renderPlot({
+#   trend_abstimmung(input$y_variable, input$untergruppe)
+# })
+
+
+
+renderGirafe({
+   grafico_torta_senza_base(#input$partito, 
+     input$candidato_e_partito)
+ })
+
+
+```
+
+### In rapporto al totale di voti fuori lista
+
+```{r funzione-torta-in-rapporto, include=FALSE}
+
+# rimuovere base + PREF. da df_full e calcolare somma tutti i voti fuori lista per ogni lista
+
+
+voti_dati_fuori <-  df_full %>% 
+  filter(!(variable %in% c("BASE", "PREF."))) %>% 
+  group_by(variable) %>% 
+  summarise(somma_fuori_lista=sum(value, na.rm = T)) %>% 
+  ungroup()
+
+
+df_full_extra<-df_full %>% 
+  filter(!(variable %in% c("BASE", "PREF."))) %>% 
+  select(everything(), -value_perc) %>% 
+  left_join(., voti_dati_fuori, by="variable") %>% 
+  mutate(perc_fuori = value / somma_fuori_lista) 
+
+
+
+# Funktion, um interaktive Grafik zu erstellen
+
+grafico_barre_fuori_lista<-function(#partito, 
+  candidato) {
+  
+  # test grafico
+
+  test<-df_full_extra %>% 
+   # filter(PARTITO %in% partito) %>% 
+    filter(candidato_e_partito         %in% candidato) %>% 
+    na.omit(perc_fuori) # esclusiamo il proprio partito
+
+
+  # colore partito
+
+  colore_partito<-test %>% 
+  filter(is.na(value)) %>% 
+  select(colori) %>% 
+  pull()
+  
+  # ordine partiti (da quello con la % maggiore)
+  
+  ordine_partiti<-test %>% 
+    arrange(desc(perc_fuori)) %>% 
+    select(variable) %>% 
+    pull() %>% as.character()
+
+  # test$colori[test$variable %in% "BASE"]<-colore_partito
+  # test$colori[test$variable %in% "PREF."]<-colorspace::darken(colore_partito, 0.05)
+
+  # nome partito in BASE e in PREF.
+
+  # plyr::revalue(test$variable, c("BASE" = paste0("BASE (", unique(test$PARTITO), ")"))) -> test$variable
+
+  # plyr::revalue(test$variable, c("PREF." = paste0("PREF. (", unique(test$PARTITO), ")"))) -> test$variable
+
+  # grafico statico
+  
+   plot_cand<-ggplot(test, aes(x=reorder(variable, perc_fuori), y=perc_fuori, 
+                              fill=factor(variable, levels = ordine_partiti))) +
+   # geom_col(width = 0.8) +
+    #scale_fill_manual(values = drop_na(test) %>% select(colori) %>% pull() %>% rev(),
+     #              guide = guide_legend(reverse = TRUE) ) + # togliere NA del partito di appartenenza
+    scale_x_discrete("") +
+    scale_y_continuous("Voti ricevuti rispetto a tutti i voti espressi fuori lista (in %)",
+                       expand = c(0,0),
+                       labels = scales::percent)+
+    ggtitle(paste0(unique(test$candidato_e_partito))) +
+    theme_classic(base_size = 14) +
+    theme(legend.title = element_blank(),
+          legend.position = "none",
+          axis.ticks.y = element_blank(),
+          panel.grid.major.x = element_line(colour = "grey90")) +
+    coord_flip()
+  
+  
+  # interaktiv
+  
+    plot_cand_interactive<-plot_cand + 
+    geom_col_interactive(aes(x=reorder(variable, perc_fuori), y=perc_fuori, 
+                              fill=factor(variable, levels = ordine_partiti),
+                   tooltip=paste0("<strong>", scales::percent(perc_fuori, decimal.mark = ",", accuracy = 0.1), 
+                                  "</strong>",
+                                  " di tutti i voti fuori lista espressi dall'elettorato ", "<strong>", unique(test$variable)),
+                   "</strong>",
+                   data_id=variable),
+                   color="white",
+                   width = 0.8) +
+    guides(fill=guide_legend(byrow = TRUE)) +
+    scale_fill_manual(values = drop_na(test) %>% arrange(desc(perc_fuori)) %>% 
+                        select(colori) %>% 
+                        pull(),
+                   guide = guide_legend() ) +
+      theme(text = element_text(family = "Arial"))
+    
+    
+      tooltip_elezioni<- "background:white;padding:10px;border:1.5px solid#000000;font-family:Arial;font-size:13px;line-height:170%;color:black;"
+      
+  
+   plot_cand_girafe<-girafe(ggobj = plot_cand_interactive, width_svg = 10, height_svg = 5,
+            options = list(
+          opts_hover(css = "opacity:0.8;"),
+          opts_tooltip(css = tooltip_elezioni,
+                      use_cursor_pos = T, 
+                      use_fill = F,
+                      opacity = 0.95),
+          opts_toolbar(saveaspng = FALSE,
+                       hidden = "selection")))
+     
+     
+  plot_cand_girafe
+  
+}
+
+
+```
+
+
+
+```{r grafico-in-rapporto}
+
+# Combine the selected variables into a new data frame
+#selectedData <- reactive({
+#  vox_pool[, c(input$y_variable, input$untergruppe)]
+#})
+
+
+
+# renderPlot({
+#   trend_abstimmung(input$y_variable, input$untergruppe)
+# })
+
+
+
+renderGirafe({
+   grafico_barre_fuori_lista(#input$partito, 
+     input$candidato_e_partito)
+ })
+
+
+```
+
+
+ {data-height=100}
+-----------------------------------------------------------------------
+
+### Informazioni
+
+**Fonte dei dati**:
+
+* Repubblica e Cantone Ticino (2023). *Risultati elezioni cantonali 2023*. ([https://www3.ti.ch/elezioni/Cantonali2019/ViewVotiPersonali.php?File=000_00_1&ElTipo=GC](https://www3.ti.ch/elezioni/Cantonali2019/ViewVotiPersonali.php?File=000_00_1&ElTipo=GC){target="_blank"}, stato al `r format(Sys.Date(), format="%d/%m/%Y")`)
+
+<br>
+
+Cliccare [qui](https://pless.shinyapps.io/cds23_dashboard/){target="_blank"} per visualizzare i grafici relativi all'elezione del **Consiglio di Stato** (2023)
+
+<br>
