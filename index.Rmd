@@ -1,15 +1,18 @@
 ---
-title: "Graduatoria risultati candidate/i Gran Consiglio 2023"
+title: "Risultati candidate/i Gran Consiglio 2023"
 output:
   html_document:
     toc: true
     toc_float: true
 ---
 
+<br><br>
+
+Aggiornato al `r format(Sys.Date(), "%d/%m/%Y")` alle ora `r format(Sys.time(), "%H:%M")`
 
 <br><br>
 
-Le candidati e i candidati sono ordinati in base al numero di voti ricevuti.
+Le candidate e i candidati sono ordinati in base al numero di voti ricevuti.
 
 ```{r, echo=F, message=F, warning=F}
 
@@ -37,7 +40,8 @@ tabelle_1 <- tabelle[[1]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -56,7 +60,8 @@ tabelle_2 <- tabelle[[2]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -75,7 +80,8 @@ tabelle_3 <- tabelle[[3]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -94,7 +100,8 @@ tabelle_4 <- tabelle[[4]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -114,7 +121,8 @@ tabelle_5 <- tabelle[[5]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -134,7 +142,8 @@ tabelle_6 <- tabelle[[6]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -154,7 +163,8 @@ tabelle_7 <- tabelle[[7]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -174,7 +184,8 @@ tabelle_8 <- tabelle[[8]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -194,7 +205,8 @@ tabelle_9 <- tabelle[[9]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -214,7 +226,8 @@ tabelle_10 <- tabelle[[10]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -234,7 +247,8 @@ tabelle_11 <- tabelle[[11]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -254,7 +268,8 @@ tabelle_12 <- tabelle[[12]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -274,7 +289,8 @@ tabelle_13 <- tabelle[[13]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
@@ -294,7 +310,8 @@ tabelle_14 <- tabelle[[14]] %>%
   slice(1:(nrow(.)-1)) %>% 
   mutate(`VOTI PERSONALI` = str_replace(`VOTI PERSONALI`, "'", ""),
          `VOTI PERSONALI` = as.numeric(`VOTI PERSONALI`)) %>% 
-  arrange(desc(`VOTI PERSONALI`))
+  arrange(desc(`VOTI PERSONALI`)) %>% 
+  mutate(POSIZIONE = row_number())
 
 # tabella
 
