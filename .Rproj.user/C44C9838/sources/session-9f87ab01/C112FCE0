@@ -3,7 +3,7 @@
     "path": "~/GitHub/graduatoria-candidati-GC23/candidat.Rmd",
     "project_path": "candidat.Rmd",
     "type": "r_markdown",
-    "hash": "1501905658",
+    "hash": "2286366477",
     "contents": "",
     "dirty": false,
     "created": 1680539066141.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "310,418",
-        "scrollLine": "295"
+        "cursorPosition": "28,0",
+        "scrollLine": "15"
     },
     "folds": "",
-    "lastKnownWriteTime": 1680539873,
+    "lastKnownWriteTime": 1680540383,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1680539873423,
+    "last_content_update": 1680540383239,
     "read_only": false,
     "read_only_alternatives": []
 }

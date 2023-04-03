@@ -1,0 +1,5 @@
+"0","tabelle<-read_html(url) %>% 
+  html_table()
+"
+"2","Error: 'C:/Users/paga_/Documents/GitHub/graduatoria-candidati-GC23backup html/Candidati.htm' does not exist.
+"

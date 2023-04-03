@@ -13,12 +13,14 @@ Le candidati e i candidati sono ordinati in base al numero di voti ricevuti.
 
 ```{r, echo=F, message=F, warning=F}
 
+rm(list = ls())
+
 library(tidyverse)
 library(kableExtra)
 library(rvest)
 
 
-url <- paste0(getwd(), "/Candidati.htm")
+url <- paste0(getwd(), "/backup html/Candidati.htm")
 
 tabelle<-read_html(url) %>% 
   html_table()
